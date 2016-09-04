@@ -20,8 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-GHOST_CONFIG_FILE_URL="https://raw.githubusercontent.com/cgddrd/dotfiles/master/ghost/ghost-config.js"
-APACHE_GHOST_VIRTUALHOST_FILE_URL="https://raw.githubusercontent.com/cgddrd/dotfiles/master/apache/vhost-ghost.conf"
+GHOST_CONFIG_FILE_URL="https://raw.githubusercontent.com/cgddrd/booty-srv/master/resources/ghost-config.js"
+APACHE_GHOST_VHOST_URL="https://raw.githubusercontent.com/cgddrd/booty-srv/master/resources/vhost-ghost.conf"
+APACHE_GITLAB_VHOST_URL="https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/web-server/apache/gitlab-apache24.conf"
 ALLOW_ROOT=false
 
 update_repositories() {
@@ -448,7 +449,7 @@ setup_ghost_apache_proxy() {
   a2enmod proxy proxy_http
 
   print_message "Downloading Apache/Ghost virtualhost configuration file."
-  wget -O /etc/apache2/sites-available/$VIRTUALHOST_FILE_NAME $APACHE_GHOST_VIRTUALHOST_FILE_URL
+  wget -O /etc/apache2/sites-available/$VIRTUALHOST_FILE_NAME $APACHE_GHOST_VHOST_URL
 
   print_message "Configuring Apache virtualhost for Ghost."
   sed -i.bak "s/<BLOG_URL>/${GHOST_URL}/g" /etc/apache2/sites-available/$VIRTUALHOST_FILE_NAME
@@ -464,7 +465,6 @@ setup_ghost_apache_proxy() {
 
 install_gitlab() {
 
-  local GITLAB_APACHE_CONFIG_URL="https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/web-server/apache/gitlab-apache24.conf"
   local VIRTUALHOST_FILE_NAME="/etc/apache2/sites-available/${GITLAB_URL}.conf"
 
   print_message "Installing Gitlab..."
@@ -488,7 +488,7 @@ install_gitlab() {
   sed -i "s/^#\snginx\['enable'\].*/nginx\['enable'\] = false/" /etc/gitlab/gitlab.rb
 
   print_message "Configuring Gitlab/Apache virtualhost."
-  wget -O $VIRTUALHOST_FILE_NAME $GITLAB_APACHE_CONFIG_URL
+  wget -O $VIRTUALHOST_FILE_NAME $APACHE_GITLAB_VHOST_URL
   sed -i.bak "s/YOUR_SERVER_FQDN/${GITLAB_URL}/g" $VIRTUALHOST_FILE_NAME
 
   # CG - Update Apache default log filepath from '/var/log/httpd/logs/' to '/var/log/apache2/'.
