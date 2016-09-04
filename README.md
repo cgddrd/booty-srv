@@ -1,5 +1,5 @@
 # booty-srv
-A no-frills Bash script that sets up web servers just the way I (literally meaning me, as in [cgddrd](https://github.com/cgddrd)) like 'em.
+A no-frills Bash script that sets up web servers just the way I like 'em (literally meaning me, as in [cgddrd](https://github.com/cgddrd)).
 
 ## What does it do?
 
