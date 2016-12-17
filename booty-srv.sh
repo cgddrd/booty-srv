@@ -111,11 +111,11 @@ install_proftpd() {
 
   print_message "Installing ProFTPd."
 
-  #apt-get install -y proftpd
+  apt-get install -y proftpd
   
-  apt-get -y install debconf-utils
-  echo "proftpd-basic shared/proftpd/inetd_or_standalone select standalone" \| debconf-set-selections
-  sudo apt-get -y install proftpd
+  #apt-get -y install debconf-utils
+  #echo "proftpd-basic shared/proftpd/inetd_or_standalone select standalone" \| debconf-set-selections
+  #sudo apt-get -y install proftpd
 
   # Update the ServerName
   # See: http://stackoverflow.com/a/11245372/4768230 for more information.
