@@ -15,7 +15,7 @@ Provides automated support for setting up a new web server instance (as per my o
 
 Well, it's just a Bash script, so kinda works like any other - you download it, run it (passing in some parameters), and it does its thing.
 
-## How do I drive it?
+## How do I use it?
 
 The easiest way to get going is type something like this:
 
