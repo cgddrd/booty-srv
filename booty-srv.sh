@@ -111,13 +111,16 @@ install_proftpd() {
 
   print_message "Installing ProFTPd."
 
-  #apt-get install -y proftpd
+  # Based on solution available at: http://www.servercobra.com/bullet-proof-proftpd.
   
+  # 1. Install 'debconf-utils' package to 'playback' recorded user actions. 
   apt-get -y install debconf-utils
-  echo "proftpd-basic shared/proftpd/inetd_or_standalone select standalone" | debconf-set-selections
-  sudo apt-get -y install proftpd
   
-  apt-get install proftpd
+  # 2. Record the user step to select 'Standalone' mode for the ProFTPD installer.
+  echo "proftpd-basic shared/proftpd/inetd_or_standalone select standalone" | debconf-set-selections
+  
+  # 3. Install ProFTPD, using 'debconf-utils' to auto-select 'Standalone' mode when promoted by installer.
+  apt-get -y install proftpd
 
   # Update the ServerName
   # See: http://stackoverflow.com/a/11245372/4768230 for more information.
