@@ -194,6 +194,8 @@ install_mysql() {
   apt-get -y install mysql-server
 
   #secure_mysql
+  
+  mysql_secure_installation --use-default
 
 }
 
