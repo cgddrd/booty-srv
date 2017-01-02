@@ -289,10 +289,6 @@ initial_setup() {
 setup_ssh() {
 
   print_message "Configuring SSH/SFTP"
-  
-  
-  sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
-  sed -i -e '$aAllowUsers demo' /etc/ssh/sshd_config
 
   #  CG - Check to see if we have specified a custom port for SSH access.
   if [ ! -z "$SSH_PORT" ]; then
