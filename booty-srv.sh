@@ -289,17 +289,25 @@ initial_setup() {
 setup_ssh() {
 
   print_message "Configuring SSH/SFTP"
+  
+  
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers demo' /etc/ssh/sshd_config
 
   #  CG - Check to see if we have specified a custom port for SSH access.
   if [ ! -z "$SSH_PORT" ]; then
-    sed -i.bak "s/.*Port 22.*/Port ${SSH_PORT}/" /etc/ssh/sshd_config
+    #sed -i.bak "s/.*Port 22.*/Port ${SSH_PORT}/" /etc/ssh/sshd_config
+    sed -i.bak -e "/^Port/s/^.*\$/Port ${SSH_PORT}/" /etc/ssh/sshd_config
   fi
 
   if [ "$ALLOW_ROOT" = true ]; then
-    echo "AllowUsers root ${1}" >> /etc/ssh/sshd_config
+    #echo "AllowUsers root ${1}" >> /etc/ssh/sshd_config
+    sed -i -e "\$aAllowUsers root ${1}" /etc/ssh/sshd_config
   else 
-    echo "AllowUsers ${1}" >> /etc/ssh/sshd_config
-    sed -i "s/.*PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+    #echo "AllowUsers ${1}" >> /etc/ssh/sshd_config
+    #sed -i "s/.*PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+    sed -i -e "\$aAllowUsers ${1}" /etc/ssh/sshd_config
+    sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   fi
 
   restart_firewall
