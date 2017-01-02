@@ -355,6 +355,8 @@ setup_firewall() {
 set_timezone() {
 
   print_message "Configuring timezone."
+  
+  apt-get install -y language-pack-en
 
   ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
